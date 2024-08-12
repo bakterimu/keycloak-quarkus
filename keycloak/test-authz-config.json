@@ -1,0 +1,170 @@
+{
+  "allowRemoteResourceManagement": false,
+  "policyEnforcementMode": "ENFORCING",
+  "resources": [
+    {
+      "name": "Create Restaurant Resource",
+      "ownerManagedAccess": false,
+      "displayName": "Create Restaurant Resource",
+      "attributes": {},
+      "uris": [
+        "/restaurant"
+      ],
+      "icon_uri": ""
+    },
+    {
+      "name": "Update MenuItem Resource",
+      "ownerManagedAccess": false,
+      "displayName": "Update MenuItem Resource",
+      "attributes": {},
+      "uris": [
+        "/restaurant/menu/item/{itemId}/{price}"
+      ],
+      "icon_uri": ""
+    },
+    {
+      "name": "Default Resource",
+      "ownerManagedAccess": false,
+      "displayName": "Default Resource",
+      "attributes": {},
+      "uris": [
+        "/*"
+      ],
+      "icon_uri": ""
+    },
+    {
+      "name": "Create Menu Resource",
+      "ownerManagedAccess": false,
+      "displayName": "Create Menu Resource",
+      "attributes": {},
+      "uris": [
+        "/restaurant/menu"
+      ],
+      "icon_uri": ""
+    },
+    {
+      "name": "List Orders Resource",
+      "ownerManagedAccess": false,
+      "displayName": "List Orders Resource",
+      "attributes": {},
+      "uris": [
+        "/order/{restaurantId}/list"
+      ],
+      "icon_uri": ""
+    }
+  ],
+  "policies": [
+    {
+      "name": "Create Restaurant Policy",
+      "description": "",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "fetchRoles": "false",
+        "roles": "[{\"id\":\"admin\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "List Orders Policy",
+      "description": "",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "fetchRoles": "false",
+        "roles": "[{\"id\":\"manager\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "Update MenuItem Policy",
+      "description": "",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "fetchRoles": "false",
+        "roles": "[{\"id\":\"owner\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "Create Menu Policy",
+      "description": "",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "fetchRoles": "false",
+        "roles": "[{\"id\":\"manager\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "Default Policy",
+      "description": "",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "fetchRoles": "false",
+        "roles": "[{\"id\":\"default-roles-bwct\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "Create Restaurant Permission",
+      "description": "",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"Create Restaurant Resource\"]",
+        "applyPolicies": "[\"Create Restaurant Policy\"]"
+      }
+    },
+    {
+      "name": "Create Menu Permission",
+      "description": "",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"Create Menu Resource\"]",
+        "applyPolicies": "[\"Create Menu Policy\"]"
+      }
+    },
+    {
+      "name": "Default Permission",
+      "description": "",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"Default Resource\"]",
+        "applyPolicies": "[\"Default Policy\"]"
+      }
+    },
+    {
+      "name": "Update MenuItem Permission",
+      "description": "",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"Update MenuItem Resource\"]",
+        "applyPolicies": "[\"Update MenuItem Policy\"]"
+      }
+    },
+    {
+      "name": "List Orders Permission",
+      "description": "",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"List Orders Resource\"]",
+        "applyPolicies": "[\"List Orders Policy\"]"
+      }
+    }
+  ],
+  "scopes": [],
+  "decisionStrategy": "UNANIMOUS"
+}
