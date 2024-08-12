@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 public class Menu extends PanacheEntity {
     private Long restaurant;
-    private Boolean active;
+    private Integer active;
 
     @Transient
     private List<MenuItem> menuItems;
