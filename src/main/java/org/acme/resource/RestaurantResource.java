@@ -1,5 +1,6 @@
 package org.acme.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import org.acme.entity.Menu;
@@ -37,6 +38,19 @@ public class RestaurantResource {
     public Restaurant createRestaurant(Restaurant restaurant){
         restaurant.persist();
         return restaurant;
+    }
+
+    @PUT
+    @Transactional
+//    @RolesAllowed("owner")
+    @SecurityRequirement(name = "Keycloak")
+    public Restaurant editRestaurant(Restaurant restaurant){
+        Restaurant rest = Restaurant.findById(restaurant.id);
+        rest.setName(restaurant.getName());
+        rest.setType(restaurant.getType());
+        rest.setLocation(restaurant.getLocation());
+        rest.persist();
+        return rest;
     }
 
     @POST

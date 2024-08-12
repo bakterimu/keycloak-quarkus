@@ -3,12 +3,20 @@
   "policyEnforcementMode": "ENFORCING",
   "resources": [
     {
-      "name": "Create Restaurant Resource",
+      "name": "Create Update Restaurant Resource",
       "ownerManagedAccess": false,
-      "displayName": "Create Restaurant Resource",
+      "displayName": "Create Update Restaurant Resource",
       "attributes": {},
       "uris": [
         "/restaurant"
+      ],
+      "scopes": [
+        {
+          "name": "POST"
+        },
+        {
+          "name": "PUT"
+        }
       ],
       "icon_uri": ""
     },
@@ -19,6 +27,11 @@
       "attributes": {},
       "uris": [
         "/restaurant/menu/item/{itemId}/{price}"
+      ],
+      "scopes": [
+        {
+          "name": "PUT"
+        }
       ],
       "icon_uri": ""
     },
@@ -40,6 +53,11 @@
       "uris": [
         "/restaurant/menu"
       ],
+      "scopes": [
+        {
+          "name": "POST"
+        }
+      ],
       "icon_uri": ""
     },
     {
@@ -49,6 +67,11 @@
       "attributes": {},
       "uris": [
         "/order/{restaurantId}/list"
+      ],
+      "scopes": [
+        {
+          "name": "GET"
+        }
       ],
       "icon_uri": ""
     }
@@ -110,13 +133,25 @@
       }
     },
     {
-      "name": "Create Restaurant Permission",
+      "name": "Update Restaurant Policy",
       "description": "",
-      "type": "resource",
+      "type": "role",
       "logic": "POSITIVE",
       "decisionStrategy": "UNANIMOUS",
       "config": {
-        "resources": "[\"Create Restaurant Resource\"]",
+        "fetchRoles": "false",
+        "roles": "[{\"id\":\"owner\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "Create Restaurant Permission",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"Create Update Restaurant Resource\"]",
+        "scopes": "[\"POST\"]",
         "applyPolicies": "[\"Create Restaurant Policy\"]"
       }
     },
@@ -129,6 +164,18 @@
       "config": {
         "resources": "[\"Create Menu Resource\"]",
         "applyPolicies": "[\"Create Menu Policy\"]"
+      }
+    },
+    {
+      "name": "Update Restaurant Permission",
+      "description": "",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"Create Update Restaurant Resource\"]",
+        "scopes": "[\"PUT\"]",
+        "applyPolicies": "[\"Update Restaurant Policy\"]"
       }
     },
     {
@@ -165,6 +212,23 @@
       }
     }
   ],
-  "scopes": [],
+  "scopes": [
+    {
+      "name": "GET",
+      "iconUri": ""
+    },
+    {
+      "name": "DELETE",
+      "iconUri": ""
+    },
+    {
+      "name": "PUT",
+      "iconUri": ""
+    },
+    {
+      "name": "POST",
+      "iconUri": ""
+    }
+  ],
   "decisionStrategy": "UNANIMOUS"
 }
