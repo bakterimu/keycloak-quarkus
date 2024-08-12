@@ -1,7 +1,5 @@
 package org.acme.resource;
 
-import io.quarkus.security.Authenticated;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -9,6 +7,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import org.acme.entity.Order;
 import org.acme.entity.OrderItem;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 
 import java.util.List;
 
@@ -18,14 +17,16 @@ public class OrderResource {
 
     @GET
     @Path("/{restaurantId}/list")
-    @RolesAllowed("manager")
+    @SecurityRequirement(name = "Keycloak")
+//    @RolesAllowed("manager")
     public List<Order> getOrder(@PathParam("restaurantId") Long restaurantId) {
         return Order.find("restaurantId = ?1", restaurantId).list();
     }
 
     @GET
     @Path("/{orderId}")
-    @RolesAllowed("manager")
+    @SecurityRequirement(name = "Keycloak")
+//    @RolesAllowed("manager")
     public Order getOrderDetails(@PathParam("orderId") Long orderId){
         Order order = Order.findById(orderId);
         order.setOrderItems(OrderItem.find("orderId = ?1", orderId).list());
@@ -34,6 +35,7 @@ public class OrderResource {
 
     @POST
     @Transactional
+    @SecurityRequirement(name = "Keycloak")
     public Order createOrder(Order order) {
         order.persist();
         List<OrderItem> orderItems = order.getOrderItems();
